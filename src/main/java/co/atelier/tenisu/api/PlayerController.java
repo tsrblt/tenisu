@@ -21,7 +21,8 @@ public class PlayerController {
 
     @GetMapping("/")
     public ResponseEntity<List<Player>> getPlayers() {
-        return null;
+        List<Player> players = this.playerService.getAllPlayers();
+        return ResponseEntity.ok().body(players);
     }
 
     @GetMapping("/{id}")

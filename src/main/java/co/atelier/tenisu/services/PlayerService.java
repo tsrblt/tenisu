@@ -1,7 +1,10 @@
 package co.atelier.tenisu.services;
 
-import org.springframework.stereotype.Service;
+import co.atelier.tenisu.entity.Player;
 
-@Service
+import java.util.List;
+
 public interface PlayerService {
+
+    List<Player> getAllPlayers();
 }

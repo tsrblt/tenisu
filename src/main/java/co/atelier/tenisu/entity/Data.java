@@ -1,18 +1,29 @@
 package co.atelier.tenisu.entity;
 
 public class Data {
-    private int rank;
+    private Integer rank;
     private int points;
     private int weight;
     private int height;
     private int age;
     private int[] last;
 
-    public int getRank() {
+    public Data() {}
+
+    public Data(Integer rank, int points, int weight, int height, int age, int[] last) {
+        this.rank = rank;
+        this.points = points;
+        this.weight = weight;
+        this.height = height;
+        this.age = age;
+        this.last = last;
+    }
+
+    public Integer getRank() {
         return rank;
     }
 
-    public void setRank(int rank) {
+    public void setRank(Integer rank) {
         this.rank = rank;
     }
 
