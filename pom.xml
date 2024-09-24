@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>co.atelier</groupId>
 	<artifactId>tenisu</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<name>tenisu</name>
 	<description>API project Tenisu for L&apos;Atelier</description>
 	<url/>

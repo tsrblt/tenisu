@@ -47,6 +47,22 @@ public abstract class PlayerStatisticsUtil {
         if (isEmpty(players)) {
             return "";
         }
+        Map<String, RatioCountryCounter> countryRatio = computeCountryRatioMap(players);
+        String result = null;
+        BigDecimal bestRatio = ZERO;
+        for (Map.Entry<String, RatioCountryCounter> elm : countryRatio.entrySet()) {
+            BigDecimal currentRatio = elm.getValue().getRatio();
+            if (currentRatio.compareTo(bestRatio) == 1) {
+                bestRatio = currentRatio;
+                result = elm.getKey();
+            } else if (currentRatio.compareTo(bestRatio) == 0) {
+                result += ", " + elm.getKey();
+            }
+        }
+        return result;
+    }
+
+    private static Map<String, RatioCountryCounter> computeCountryRatioMap(List<Player> players) {
         Map<String, RatioCountryCounter> countryRatio = new HashMap<>();
         for (Player player: players) {
             if (player.getCountry() == null || player.getData() == null) {
@@ -63,15 +79,6 @@ public abstract class PlayerStatisticsUtil {
                 countryRatio.replace(countryCode, counter);
             }
         }
-        String result = null;
-        BigDecimal bestRatio = ZERO;
-        for (Map.Entry<String, RatioCountryCounter> elm : countryRatio.entrySet()) {
-            BigDecimal currentRatio = elm.getValue().getRatio();
-            if (currentRatio.compareTo(bestRatio) == 1) {
-                bestRatio = currentRatio;
-                result = elm.getKey();
-            }
-        }
-        return result;
+        return countryRatio;
     }
 }

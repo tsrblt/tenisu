@@ -5,6 +5,13 @@ public class Country {
     private String picture;
     private String code;
 
+    public Country() {}
+
+    public Country(String picture, String code) {
+        this.picture = picture;
+        this.code = code;
+    }
+
     public String getPicture() {
         return picture;
     }
