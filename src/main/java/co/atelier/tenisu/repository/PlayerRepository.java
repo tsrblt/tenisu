@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface PlayerRepository {
     List<Player> findAllPlayers();
+
+    Player findPlayerById(int id);
 }

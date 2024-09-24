@@ -13,15 +13,29 @@ import java.util.List;
 @Repository
 public class PlayerRepositoryImpl implements PlayerRepository {
 
+    private static final String LIST_PLAYERS_JSON = "/static/headtohead.json";
+
     @Override
     public List<Player> findAllPlayers() {
         return getPlayersListFromJson();
     }
 
+    @Override
+    public Player findPlayerById(int id) {
+        List<Player> players = getPlayersListFromJson();
+
+        for (Player player : players) {
+            if (player.getId() == id) {
+                return player;
+            }
+        }
+        return null;
+    }
+
     private List<Player> getPlayersListFromJson() {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
-            InputStream inputStream = getClass().getResourceAsStream("/static/headtohead.json");
+            InputStream inputStream = getClass().getResourceAsStream(LIST_PLAYERS_JSON);
             if (inputStream != null) {
                 PlayersWrapper wrapper = objectMapper.readValue(inputStream, PlayersWrapper.class);
                 return wrapper.getPlayers();

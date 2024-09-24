@@ -1,7 +1,8 @@
 package co.atelier.tenisu.api;
 
 import co.atelier.tenisu.dto.PlayersStatisticsDto;
-import co.atelier.tenisu.services.PlayerService;
+import co.atelier.tenisu.service.PlayerService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,11 +28,17 @@ public class PlayerController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Player> getPlayerById(@PathVariable int id) {
-        return null;
+        Player player = this.playerService.getPlayerById(id);
+        if (player == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        return ResponseEntity.ok().body(player);
     }
 
     @GetMapping("/statistics")
     public ResponseEntity<PlayersStatisticsDto> getPlayersStatistics() {
-        return null;
+        PlayersStatisticsDto stats = this.playerService.calculatePlayersStatistics();
+
+        return ResponseEntity.ok().body(stats);
     }
 }

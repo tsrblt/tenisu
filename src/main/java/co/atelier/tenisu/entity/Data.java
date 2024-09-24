@@ -1,5 +1,12 @@
 package co.atelier.tenisu.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
+import static java.math.BigDecimal.*;
+
 public class Data {
     private Integer rank;
     private int points;
@@ -65,5 +72,24 @@ public class Data {
 
     public void setLast(int[] last) {
         this.last = last;
+    }
+
+    @JsonIgnore
+    public BigDecimal getBMI() {
+        BigDecimal weight = new BigDecimal(this.weight);
+        BigDecimal height = new BigDecimal(this.height);
+
+        return weight.divide(height.multiply(height), 2, RoundingMode.HALF_EVEN).multiply(TEN);
+    }
+
+    @JsonIgnore
+    public int getWins() {
+        int wins = 0;
+        for (int result : last) {
+            if (result == 1) {
+                wins++;
+            }
+        }
+        return wins;
     }
 }

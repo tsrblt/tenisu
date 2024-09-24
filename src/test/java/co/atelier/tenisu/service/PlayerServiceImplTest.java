@@ -1,4 +1,4 @@
-package co.atelier.tenisu.services;
+package co.atelier.tenisu.service;
 
 import co.atelier.tenisu.entity.Data;
 import co.atelier.tenisu.entity.Player;
@@ -14,7 +14,9 @@ import org.mockito.MockitoAnnotations;
 import java.util.ArrayList;
 import java.util.List;
 
+import static co.atelier.tenisu.entity.SexEnum.F;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.when;
 
 class PlayerServiceImplTest {
@@ -58,7 +60,7 @@ class PlayerServiceImplTest {
     @DisplayName("Find all players sorted by rank when return multiple players")
     void getAllPlayersSorted() {
         Data data1 = new Data(100, 12, 98, 180, 108, new int[]{0, 0, 0, 0, 0});
-        Player player1 = new Player(125, "Iga", "Swiatek", "IS", SexEnum.F, "", null, data1);
+        Player player1 = new Player(125, "Iga", "Swiatek", "IS", F, "", null, data1);
 
         Data data2 = new Data(50, 12, 98, 180, 108, new int[]{0, 0, 0, 0, 0});
         Player player2 = new Player(123, "Carlos", "Alcaraz", "CA", SexEnum.M, "", null, data2);
@@ -77,7 +79,7 @@ class PlayerServiceImplTest {
     @DisplayName("Find all players sorted by rank when return multiple players")
     void getAllPlayersSortedSameRank() {
         Data data1 = new Data(100, 12, 98, 180, 108, new int[]{0, 0, 0, 0, 0});
-        Player player1 = new Player(125, "Iga", "Swiatek", "IS", SexEnum.F, "", null, data1);
+        Player player1 = new Player(125, "Iga", "Swiatek", "IS", F, "", null, data1);
 
         Data data2 = new Data(100, 12, 98, 180, 108, new int[]{0, 0, 0, 0, 0});
         Player player2 = new Player(123, "Carlos", "Alcaraz", "CA", SexEnum.M, "", null, data2);
@@ -86,5 +88,21 @@ class PlayerServiceImplTest {
         assertEquals(2, this.playerService.getAllPlayers().size());
         assertEquals("Swiatek", this.playerService.getAllPlayers().getFirst().getLastname());
         assertEquals("Alcaraz", this.playerService.getAllPlayers().getLast().getLastname());
+    }
+
+    @Test
+    @DisplayName("Find player by id")
+    void findPlayerById() {
+        Data data1 = new Data(100, 12, 98, 180, 108, new int[]{0, 0, 0, 0, 0});
+        Player player1 = new Player(125, "Iga", "Swiatek", "IS", F, "", null, data1);
+
+        when(playerRepository.findPlayerById(anyInt())).thenReturn(player1);
+
+        Player player = this.playerService.getPlayerById(125);
+        assertEquals("Swiatek", player.getLastname());
+        assertEquals("Iga", player.getFirstname());
+        assertEquals("IS", player.getShortname());
+        assertEquals(F, player.getSex());
+        assertEquals(100, player.getData().getRank());
     }
 }
