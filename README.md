@@ -18,7 +18,7 @@ Tenisu est une application RESTful développée avec Spring Boot, permettant de 
 
 ### 1. **Récupérer la liste de tous les joueurs**
 
-- **URL** : `/api/v1/players`
+- **URL** : `/api/v1/players/`
 - **Méthode HTTP** : `GET`
 - **Description** : Récupère la liste de tous les joueurs trié par leur classement (du meilleur au plus bas).
 
@@ -90,11 +90,11 @@ Tenisu est une application RESTful développée avec Spring Boot, permettant de 
 #### 1. **Tester la récupération de tous les joueurs** :
 - **Via Postman** : 
   - Méthode : `GET`
-  - URL : `http://localhost:8080/api/v1/players`
+  - URL : `http://localhost:8080/api/v1/players/`
   
 - **Via cURL** :
    ```bash
-   curl -X GET http://localhost:8080/api/v1/players
+   curl -X GET http://localhost:8080/api/v1/players/
    ```
 
 #### 2. **Tester la récupération d'un joueur par son ID** :
